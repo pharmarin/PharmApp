@@ -5,9 +5,15 @@ import { iOSColors, iOSUIKit } from 'react-native-typography';
 import { RenderHTML } from '../components/HtmlText';
 import FastImage from 'react-native-fast-image';
 
-export default class Card extends React.Component {
+export default class Card extends React.PureComponent {
+
+  constructor (props) {
+    super(props)
+    this.state = { dimensions: undefined }
+  }
+
   _getThumbnail(thumbnail) {
-    const width = Dimensions.get('window').width - 32
+    const dimensions = this.state.dimensions ? {width: this.state.dimensions.width} : null
     return (
       <FastImage
         source={{
@@ -15,7 +21,7 @@ export default class Card extends React.Component {
           priority: FastImage.priority.normal,
         }}
         resizeMode={FastImage.resizeMode.cover}
-        style={{ flex: 1, height: 100, width: width, marginBottom: 10, borderTopLeftRadius: 6, borderTopRightRadius: 6 }}
+        style={[styles.image, dimensions]}
       />
     )
   }
@@ -23,7 +29,7 @@ export default class Card extends React.Component {
   render () {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
-        <View style={[styles.card, this.props.style]}>
+        <View style={[styles.card, this.props.style]} onLayout={this._onLayout}>
           {
             this.props.thumbnail ? this._getThumbnail(this.props.thumbnail) : null
           }
@@ -33,6 +39,12 @@ export default class Card extends React.Component {
         </View>
       </TouchableOpacity>
     )
+  }
+
+  _onLayout = (event) => {
+    if (this.state.dimensions) return // layout was already called
+    let {width, height} = event.nativeEvent.layout
+    this.setState({dimensions: {width, height}})
   }
 }
 
@@ -58,5 +70,11 @@ const styles = StyleSheet.create({
         shadowRadius: 16
       }
     })
+  },
+  image: {
+    flex: 1,
+    height: 100,
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6
   }
 })

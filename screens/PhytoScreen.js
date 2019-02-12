@@ -69,8 +69,10 @@ class PhytoScreen extends React.Component {
           keyExtractor={(post) =>
             post.id.toString()
           }
-          renderItem={({ item: post }) =>
+          renderItem={({ item: post, index: index }) =>
             <PharmaListItem
+              isFirst={ index === 0 }
+              isLast={ index === this.props.posts.length - 1 }
               post={ post }
               onPress={ () => this._showPostDetail(post) }
               />
