@@ -1,9 +1,11 @@
 const tintColor = 'green';
+const contrastColor = 'white';
 
 export default {
   tintColor,
-  tabIconDefault: '#ccc',
-  tabIconSelected: tintColor,
+  contrastColor,
+  tabIconDefault: '#c4ffc4',
+  tabIconSelected: contrastColor,
   tabBar: '#fefefe',
   errorBackground: 'red',
   errorText: '#fff',

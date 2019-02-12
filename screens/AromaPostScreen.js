@@ -10,12 +10,17 @@ import PlanteDetail from '../components/PlanteDetail';
 
 export default class AromaPostScreen extends React.Component {
 
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
+  static navigationOptions = ({ navigation }) => {
+    console.log(navigation)
+    const post = navigation.getParam('post')
+    const title = post.title.rendered
+    const subtitle = post.blocks.hasOwnProperty("lazyblock/identite") ? post.blocks["lazyblock/identite"].attrs.nom_latin : null
+    const thumbnail = post._embedded.hasOwnProperty("wp:featuredmedia") ? post._embedded["wp:featuredmedia"][0].media_details.sizes["pharmacie-thumbnail"].source_url : null
     return {
       headerTitle: <PhytoHeader
-        title={navigation.state.params.post.title.rendered}
-        subtitle={navigation.state.params.post.blocks["lazyblock/identite"].attrs.nom_latin}
+        title={ title }
+        subtitle={ subtitle }
+        thumbnail={ thumbnail }
         />,
     };
   };

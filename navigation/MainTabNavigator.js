@@ -11,9 +11,32 @@ import AromaPostScreen from '../screens/AromaPostScreen';
 import PhytoScreen from '../screens/PhytoScreen';
 import PhytoPostScreen from '../screens/PhytoPostScreen';
 
+const headerOptions = {
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: Colors.tintColor,
+    },
+    headerTintColor: Colors.contrastColor,
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: 20,
+    },
+  }
+}
+
+const tabBarOptions = {
+  tabBarOptions: {
+    activeTintColor: Colors.tabIconSelected,
+    inactiveTintColor: Colors.tabIconDefault,
+    style: {
+      backgroundColor: Colors.tintColor,
+    }
+  }
+}
+
 const PharmaStack = createStackNavigator({
   Pharma: PharmaScreen
-});
+}, headerOptions);
 
 PharmaStack.navigationOptions = {
   tabBarLabel: 'Pharmacie',
@@ -28,7 +51,7 @@ PharmaStack.navigationOptions = {
 const AromaStack = createStackNavigator({
   Aroma: AromaScreen,
   AromaPost: AromaPostScreen
-});
+}, headerOptions);
 
 AromaStack.navigationOptions = {
   tabBarLabel: 'Aromathérapie',
@@ -43,7 +66,7 @@ AromaStack.navigationOptions = {
 const PhytoStack = createStackNavigator({
   Phyto: PhytoScreen,
   PhytoPost: PhytoPostScreen
-})
+}, headerOptions)
 
 PhytoStack.navigationOptions = {
   tabBarLabel: 'Phytothérapie',
@@ -59,8 +82,4 @@ export default createBottomTabNavigator({
   PharmaStack,
   AromaStack,
   PhytoStack
-}, {
-  tabBarOptions: {
-    activeTintColor: Colors.tintColor
-  }
-});
+}, tabBarOptions);
